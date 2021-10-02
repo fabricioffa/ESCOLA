@@ -67,4 +67,8 @@ export default class Aluno extends Model {
     });
     return this;
   }
+
+  // static associate(models) {
+  //   this.hasOne(models.Picture, { foreignKey: 'aluno_id' });
+  // }
 }
