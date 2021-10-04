@@ -4,18 +4,15 @@ import multerConfig from '../config/multerConfig';
 const upload = multer(multerConfig).single('picture');
 
 class PictureController {
-  store(req, res) {
-    return upload(req, res, async (err) => {
-      if (err) {
+  async store(req, res) {
+    return upload(req, res, (error) => {
+      if (error) {
         return res.status(400).json({
-          errors: [err.code],
+          errors: [error.code],
         });
       }
-      try {
-        return res.json(req.file);
-      } catch (e) {
-        return console.error(e);
-      }
+
+      return res.json(req.file);
     });
   }
 }
