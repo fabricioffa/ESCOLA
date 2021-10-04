@@ -1,4 +1,5 @@
 import Sequelize, { Model } from 'sequelize';
+import appConfig from '../config/appConfig';
 
 export default class Picture extends Model {
   static init(sequelize) {
@@ -17,13 +18,19 @@ export default class Picture extends Model {
         defaultValue: '',
         validate: {
           notEmpty: {
-            msg: 'Failed to generate name.',
+            msg: 'Failed to rename file.',
           },
+        },
+      },
+      url: {
+        type: Sequelize.VIRTUAL,
+        get() {
+          return `${appConfig.url}/images/${this.getDataValue('filename')}`;
         },
       },
     }, {
       sequelize,
-      tableName: 'pictures', // já seria por default
+      tableName: 'pictures', // já teria por default
     });
     return this;
   }
